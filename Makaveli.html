@@ -142,7 +142,7 @@
       }
 
       .card-back {
-        font-size: 10px;
+        font-size: 14px;
         text-align: left;
         color: black;
         transform: rotateY(180deg);
@@ -297,6 +297,16 @@
             z-index: 999;
           }
         }
+      }
+      
+      @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+      .card-back {
+        font-size: 9px;
+        display:block;
+        items-align:center;
+        color: black;
+        transform: rotateY(180deg);
+      }
       }
 
       @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
