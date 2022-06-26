@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>All Eyez on Me</title>
+    <link rel="icon" href="./AEOM/Front.jpg" type="image/x-icon" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora&family=Noto+Sans+JP:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link href="./style.css" rel="stylesheet" />
+
+    <style>
+      :root {
+        background: black;
+        --main-radius: 5px;
+        --main-padding: 5px;
+      }
+      .container {
+        display: grid;
+        height: 100vh;
+        grid-template-columns: 0.9fr 1fr 1fr 1fr;
+        grid-template-rows: 0.2fr 1.5fr 1.2fr 0.8fr;
+        grid-template-areas:
+          "nav nav nav nav"
+          "sidebar main main main"
+          "sidebar content1 content2 content3"
+          "sidebar footer footer footer";
+        grid-gap: 0.2rem;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 800;
+        color: white;
+      }
+      h1 {
+        color: white;
+
+        font-size: 1.5rem;
+        margin-top: -15px;
+        margin-left: 120px;
+        padding: 0;
+      }
+
+      img {
+        width: 75px;
+        height: 75px;
+      }
+      .img1 {
+        width: 100%;
+        height: 100%;
+      }
+      .navbar a {
+        float: left;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 17px;
+        width: 50px;
+        margin-top: 25px;
+        margin-left: 45px;
+        z-index: -999;
+      }
+      main {
+        margin-left: -150px;
+        grid-area: main;
+        width: 100%;
+        height: 70%;
+        background: url("./AEOM/PacMain.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: var(--main-radius);
+        padding-top: var(--main-padding);
+      }
+      #sidebar {
+        background-image: url("./AEOM/AEOMSidePic.png");
+        background-size: cover;
+        background-position: center;
+        grid-area: sidebar;
+        border-radius: var(--main-radius);
+        padding-top: var(--main-padding);
+      }
+      #content1 {
+        grid-area: content1;
+        height: 600px;
+        border-radius: var(--main-radius);
+        padding-top: var(--main-padding);
+      }
+      #content2 {
+        grid-area: content2;
+        height: 600px;
+        border-radius: var(--main-radius);
+        padding-top: var(--main-padding);
+      }
+      #content3 {
+        grid-area: content3;
+        height: 600px;
+        border-radius: var(--main-radius);
+        padding-top: var(--main-padding);
+      }
+
+      .card-container {
+        background-color: transparent;
+        width: 370px;
+        height: 513px;
+      }
+
+      .card-container-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+      }
+
+      .card-container-content > .card-front > img1 {
+        width: 100%;
+        height: 100%;
+      }
+
+      .card-container:hover .card-container-content {
+        transform: rotateY(180deg);
+      }
+
+      .card-front,
+      .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .card-back {
+        font-size: 14px;
+        background-color: black;
+        color: red;
+        transform: rotateY(180deg);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+      }
+
+      footer {
+        height: 35px;
+        grid-area: footer;
+        border-radius: var(--main-radius);
+        padding-top: var(--main-padding);
+      }
+      #theMenu {
+        position: fixed;
+        left: 0;
+        top: 0;
+        transform: translate3d(-100vw, 0, 0);
+
+        width: 100vw;
+        height: 100vw;
+      }
+      #theMenu.visible {
+        transform: translate3d(0vw, 0, 0);
+      }
+
+      #container li {
+        margin-bottom: 10px;
+      }
+
+      #roundButton {
+        background: url("./AEOM/AEOMButton.jpg");
+        background-position: center;
+        background-repeat: repeat;
+        background-size: cover;
+        margin-bottom: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        outline: none;
+        transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+      }
+
+      #roundButton:hover {
+        background-color: white;
+        cursor: pointer;
+        border-color: white;
+        transform: scale(1.2, 1.2);
+      }
+
+      #roundButton:active {
+        border-color: red;
+        background-color: #fff;
+      }
+
+      #flyoutMenu {
+        list-style: none;
+        width: 100vw;
+        height: 110vh;
+        background-color: black;
+        background: url("./BigCover.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        transform: translate3d(-100vw, 0, 0);
+        transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+      }
+
+      #flyoutMenu h2 a {
+        padding-top: 55px;
+        display: grid;
+        grid-template-rows: 1fr;
+        justify-content: center;
+        color: white;
+        margin-left: 35px;
+        text-decoration: none;
+      }
+
+      #flyoutMenu h2 a:hover {
+        text-decoration: underline;
+      }
+      #flyoutMenu.show {
+        transform: translate3d(0vw, 0, 0);
+      }
+
+      @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+        #flyoutMenu {
+          list-style: none;
+          width: 100%;
+          height: 100vh;
+          background: url("./Cover.png");
+          background-size: cover;
+          background-color: black;
+          background-position: center;
+          background-repeat: no-repeat;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 999;
+          transform: translate3d(-100vw, 0, 0);
+          transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+        }
+      }
+      @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+        #flyoutMenu {
+          list-style: none;
+          width: 100%;
+          height: 100vh;
+          background: url("./Cover.png");
+          background-size: cover;
+          background-color: black;
+          background-position: center;
+          background-repeat: no-repeat;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 999;
+          transform: translate3d(-100vw, 0, 0);
+          transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+        }
+
+        @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+          .container {
+            height: 100vh;
+            overflow-x: hidden;
+            grid-template-columns: 1fr;
+            grid-template-rows: 0.4fr 0.4fr 2.2fr 1.2fr 1.2fr 1.2fr 1fr;
+            grid-template-areas:
+              "nav"
+              "sidebar"
+              "main"
+              "content1"
+              "content2"
+              "content3"
+              "footer";
+          }
+        }
+
+        @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+          #sidebar {
+            margin-left: 85px;
+            width: 100vw;
+            height: 600px;
+            background-image: url("./AEOM/AEOMSidePic.png");
+            background-size: cover;
+            background-position: center;
+            grid-area: main;
+            border-radius: var(--main-radius);
+            z-index: 999;
+          }
+        }
+      }
+
+      @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+        #content1 {
+          align-content: center;
+          margin-left: 5px;
+          margin-top: 5px;
+          grid-area: content1;
+
+          border-radius: var(--main-radius);
+        }
+      }
+      @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+        #content2 {
+          padding-top: 25px;
+          grid-area: content2;
+          margin-left: 50px;
+          height: 600px;
+          border-radius: var(--main-radius);
+        }
+      }
+      @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+        #content3 {
+          padding-top: 25px;
+          grid-area: content3;
+          margin-top: 60px;
+          height: 600px;
+          border-radius: var(--main-radius);
+        }
+      }
+
+      @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        #flyoutMenu {
+          list-style: none;
+          width: 100%;
+          height: 100vh;
+          background: url("./Cover.png");
+          background-size: cover;
+          background-color: black;
+          background-position: center;
+          background-repeat: no-repeat;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 999;
+          transform: translate3d(-100vw, 0, 0);
+          transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+        }
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+          .container {
+            overflow-x: hidden;
+            grid-template-columns: 1fr;
+            grid-template-rows: 0.4fr 0.4fr 2.2fr 1.2fr 1.2fr 1.2fr 1fr;
+            grid-template-areas:
+              "nav"
+              "sidebar"
+              "main"
+              "content1"
+              "content2"
+              "content3"
+              "footer";
+          }
+        }
+
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+          #sidebar {
+            padding-bottom: 300px;
+            margin-left: 85px;
+            width: 100vw;
+            margin-top: -68px;
+            height: 100vh;
+            background-image: url("./AEOM/AEOMSidePic.png");
+            background-size: cover;
+            background-position: center;
+            grid-area: main;
+            border-radius: var(--main-radius);
+            z-index: -999;
+          }
+        }
+      }
+
+      @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        #content1 {
+          align-content: center;
+          padding-left: 150px;
+          padding-top: 25px;
+          grid-area: content1;
+
+          border-radius: var(--main-radius);
+        }
+      }
+      @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        #content2 {
+          padding-top: 25px;
+          grid-area: content2;
+          padding-left: 150px;
+          height: 600px;
+          border-radius: var(--main-radius);
+        }
+      }
+      @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        #content3 {
+          padding-left: 150px;
+          padding-top: 25px;
+          grid-area: content3;
+          margin-top: 60px;
+          height: 600px;
+          border-radius: var(--main-radius);
+        }
+      }
+
+      @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        #flyoutMenu {
+          list-style: none;
+          width: 100%;
+          height: 100vh;
+          background: url("./Cover.png");
+          background-size: cover;
+          background-color: black;
+          background-position: center;
+          background-repeat: no-repeat;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 999;
+          transform: translate3d(-100vw, 0, 0);
+          transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+        }
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+          .container {
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 0.4fr 0.4fr 2.2fr 1.2fr 1.2fr 1.2fr 1fr;
+            grid-template-areas:
+              "nav"
+              "sidebar"
+              "main"
+              "content1"
+              "content2"
+              "content3"
+              "footer";
+          }
+        }
+
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+          #sidebar {
+            padding-bottom: 300px;
+            margin-left: 85px;
+            width: 100vw;
+            margin-top: -68px;
+            height: 100vh;
+            background-image: url("./AEOM/AEOMSidePic.png");
+            background-size: cover;
+            background-position: center;
+            grid-area: main;
+            border-radius: var(--main-radius);
+            z-index: -999;
+          }
+        }
+      }
+
+      @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        #content1 {
+          align-content: center;
+          padding-left: 150px;
+          padding-top: 25px;
+          grid-area: content1;
+
+          border-radius: var(--main-radius);
+        }
+      }
+      @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        #content2 {
+          padding-top: 25px;
+          grid-area: content2;
+          padding-left: 150px;
+          height: 600px;
+          border-radius: var(--main-radius);
+        }
+      }
+      @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        #content3 {
+          padding-left: 150px;
+          padding-top: 25px;
+          grid-area: content3;
+          margin-top: 60px;
+          height: 600px;
+          border-radius: var(--main-radius);
+        }
+      }
+
+      @media only screen and (max-width: 1200px) {
+        #flyoutMenu {
+          list-style: none;
+          overflow-x: hidden;
+          width: 100vw;
+          height: 120vh;
+          background-color: black;
+          background-image: url("./Cover.png");
+          background-size: contain;
+          background-position: center;
+          background-repeat: no-repeat;
+          position: fixed;
+          top: 0;
+
+          z-index: 999;
+          transform: translate3d(-100vw, 0, 0);
+          transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+        }
+        @media only screen and (max-width: 1200px) {
+          main {
+            opacity: 0;
+            margin-left: -40px;
+            align-content: center;
+            align-items: center;
+            justify-items: center;
+            grid-area: nav;
+            border-radius: var(--main-radius);
+            padding-top: var(--main-padding);
+          }
+        }
+
+        @media only screen and (max-width: 1200px) {
+          #sidebar {
+            margin-left: 17px;
+
+            height: 100%;
+            background-image: url("./AEOM/AEOMSidePic.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            grid-area: main;
+
+            z-index: -999;
+          }
+        }
+      }
+
+      @media only screen and (max-width: 1200px) {
+        #content1 {
+          grid-area: content1;
+          margin-left: 10px;
+          height: 600px;
+          margin-bottom: -90px;
+          border-radius: var(--main-radius);
+        }
+      }
+      @media only screen and (max-width: 1200px) {
+        #content2 {
+          grid-area: content2;
+          margin-left: 10px;
+          height: 600px;
+          margin-bottom: -150px;
+          border-radius: var(--main-radius);
+        }
+      }
+      @media only screen and (max-width: 1200px) {
+        #content3 {
+          grid-area: content3;
+          margin-left: 10px;
+          height: 600px;
+          border-radius: var(--main-radius);
+        }
+
+        @media only screen and (max-width: 1200px) {
+          .container {
+            grid-template-columns: 1fr;
+            grid-template-rows: 0.4fr 2.4fr 2.2fr 1.2fr 1.2fr 1.2fr 1fr;
+            grid-template-areas:
+              "nav"
+              "sidebar"
+              "main"
+              "content1"
+              "content2"
+              "content3"
+              "footer";
+          }
+        }
+      }
+
+      @media only screen and (max-width: 1024px) {
+        #sidebar {
+          margin-left: 17px;
+          margin-top: -68px;
+          width: 100vw;
+          height: 100vh;
+          background-image: url("./AEOM/AEOMSidePic.png");
+          background-size: cover;
+          background-position: center;
+          grid-area: main;
+
+          z-index: -999;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="flyoutMenu">
+      <h2><a href="./2PacNow.html">2Pacalypse Now</a></h2>
+      <h2><a href="./S4MN.html">Strictly 4 My N.I.G.G.A.Z.</a></h2>
+      <h2><a href="./MATW.html">Me Against the World</a></h2>
+      <h2><a href="./AEOM.html">All Eyez on Me</a></h2>
+      <h2>
+        <a href="./Makaveli.html">The Don Killuminati: The 7 Day Theory</a>
+      </h2>
+    </div>
+
+    <button id="roundButton"></button>
+
+    <script>
+      let roundButton = document.querySelector("#roundButton");
+      roundButton.addEventListener("click", showMenu, false);
+
+      let flyoutMenu = document.querySelector("#flyoutMenu");
+      flyoutMenu.addEventListener("click", hideMenu, false);
+
+      function showMenu(e) {
+        flyoutMenu.classList.add("show");
+
+        document.body.style.overflow = "hidden";
+      }
+
+      function hideMenu(e) {
+        flyoutMenu.classList.remove("show");
+        e.stopPropagation();
+
+        document.body.style.overflow = "auto";
+      }
+    </script>
+    <div class="container">
+      <main></main>
+
+      <div id="sidebar"></div>
+
+      <div id="content1">
+        <div class="card-container">
+          <div class="card-container-content">
+            <div class="card-front">
+              <img class="img1" src="./AEOM/therow.jpeg" alt="therow" />
+            </div>
+
+            <div class="card-back">
+              <div class="Album-Name">ALL EYEZ ON ME</div>
+              <p></p>
+              <div class="release-date">Vibe Magazine</div>
+              <p>
+                Appropriately titled “Live From Death Row,” VIBE ’s February
+                1996 cover featured the already-notorious label’s faces: Dr.
+                Dre, Snoop Dogg, Suge Knight and Tupac Shakur in a
+                Goodfellas-inspired collage. To understand the significance of
+                the cover image is to understand the chain of events that led to
+                it — and to the label’s downfall shortly thereafter. Let’s take
+                it back to an era before the internet, blogs and social media
+                reigned, to when hip-hop magazines were the unrivaled scripture
+                for America’s most beloved, bemoaned culture. By the outset of
+                1996, two publications were responsible for driving the
+                conversation around hip-hop and R&B, its biggest stars and its
+                most provocative news: VIBE (created by Quincy Jones in 1992)
+                and The Source (launched in 1988). The transcendent XXL didn’t
+                launch until the summer of 1997. These magazines satisfied a
+                pre-Wi-Fi audience’s yearning for news and images about rap’s
+                greatest, most dissected and, at its lowest, most heartbreaking
+                era.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="content2">
+        <div class="card-container">
+          <div class="card-container-content">
+            <div class="card-front">
+              <img class="img1" src="./AEOM/pac.jpg" alt="Pac" />
+            </div>
+
+            <div class="card-back">
+              <div class="shoe-name">Pac</div>
+              <p></p>
+              <div class="release-date">1995</div>
+              <p>
+                A sensitive, precociously talented and troubled soul, Tupac was
+                gunned down in Las Vegas on September 7, 1996 and died six days
+                later. His murder has never been solved. Tupac began his music
+                career as a rebel with a cause to articulate the travails and
+                injustices endured by many African Americans
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content3">
+        <div class="card-container">
+          <div class="card-container-content">
+            <div class="card-front">
+              <img src="./AEOM/pac2.jpg" class="img1" alt="Live" />
+            </div>
+
+            <div class="card-back">
+              <div class="shoe-name">ALL Eyez on Me Tour</div>
+              <p></p>
+              <div class="release-date">Cleveland 96</div>
+              <p>
+                Shakur's fourth album, All Eyez on Me, arrived on February 13,
+                1996. It was rap's first double album—meeting two of the three
+                albums due in Shakur's contract with Death Row—and bore five
+                singles. The album shows Shakur rapping about the gangsta
+                lifestyle, leaving behind his previous political messages. With
+                standout production, the album has more party tracks and often a
+                triumphant tone. Music journalist Kevin Powell noted that
+                Shakur, once released from prison, became more aggressive, and
+                "seemed like a completely transformed person".
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>Footer</footer>
+    </div>
+  </body>
+</html>
