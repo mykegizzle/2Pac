@@ -143,13 +143,10 @@
       }
 
       .card-back {
+       
         font-size: 14px;
-        background-color: black;
-        color: #bf973e;
+        color: black;
         transform: rotateY(180deg);
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center;
       }
 
       footer {
@@ -288,45 +285,38 @@
 
         @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
           #sidebar {
-            padding-bottom: 300px;
-
+            margin-left: 75px;
             width: 100vw;
-            margin-top: -68px;
             height: 100vh;
             background-image: url("./2PacNow/2PacNowSidePic.png");
             background-size: cover;
             background-position: center;
             grid-area: main;
             border-radius: var(--main-radius);
-            z-index: -999;
+            z-index: 999;
           }
         }
       }
 
       @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
         #content1 {
-          align-content: center;
-          padding-left: 10px;
-          margin-top: -150px;
-          grid-area: content1;
+           #content1 {  
+          margin-top:-25px;
+          grid-area: content1;     
           border-radius: var(--main-radius);
         }
-      }
       @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-        #content2 {
-          padding-top: 25px;
-          grid-area: content2;
-          padding-left: 10px;
+       #content2 {
+         margin-top: 25px;
+          grid-area: content2;   
           height: 600px;
           border-radius: var(--main-radius);
         }
       }
       @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
         #content3 {
-          padding-left: 10px;
-          padding-top: 25px;
+          margin-top: 90px;      
           grid-area: content3;
-          margin-top: 60px;
           height: 600px;
           border-radius: var(--main-radius);
         }
